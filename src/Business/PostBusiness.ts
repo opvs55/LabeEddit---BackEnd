@@ -1,4 +1,4 @@
-import { PostDataBase } from "../DataBase/PostDataBase";
+import { PostDataBase } from "../DataBase/PostDatabase";
 import { CreatePostInputDTO, CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
