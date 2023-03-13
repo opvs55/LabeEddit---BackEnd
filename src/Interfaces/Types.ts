@@ -27,6 +27,7 @@ export interface UserModel {
     createdAt: string
 }
 
+
 export interface LikesDislikesDB {
     user_id: string,
     post_id: string,
@@ -39,6 +40,17 @@ export interface PostDB {
     context: string,
     likes: number,
     dislikes: number,
+    created_at: string,
+    updated_at: string
+}
+
+export interface SubPostDB{
+    id:string,
+    post_id:string,
+    context:string,
+    user_id:string,
+    likes:number,
+    dislikes:number,
     created_at: string,
     updated_at: string
 }
@@ -59,12 +71,13 @@ export interface PostModel {
     context: string,
     likes: number,
     dislikes: number,
-    createdAt: string,
-    updateAt: string,
+    created_at: string,
+    updated_at: string,
     creator: {
         id: string,
         name: string
-    }
+    },
+    subPosts?: SubPostDB[]
 }
 
 

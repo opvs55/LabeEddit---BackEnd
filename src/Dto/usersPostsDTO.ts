@@ -50,3 +50,9 @@ export interface LikeOrDeslikePostInputDPO {
 }
 
 
+export interface CreateSubPostInputDTO{
+    token : string | undefined,
+    postId: string
+    context: unknown
+}
+

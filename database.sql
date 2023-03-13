@@ -44,3 +44,26 @@ CREATE TABLE likes_dislikes (
         ON UPDATE CASCADE
 );
 
+
+CREATE TABLE subposts (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    post_id TEXT NOT NULL,
+    context TEXT NOT NULL,
+    user_id TEXT NOT NULL,
+    likes INTEGER DEFAULT(0) NOT NULL,
+    dislikes INTEGER DEFAULT(0) NOT NULL,
+    created_at TEXT DEFAULT(DATETIME()) NOT NULL,
+    updated_at TEXT DEFAULT(DATETIME()) NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES post(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+SELECT * FROM subposts;
+
+
+DROP TABLE subposts;
