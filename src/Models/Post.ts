@@ -1,4 +1,4 @@
-import { PostDataBase } from "../Database/PostDatabase";
+import { PostDataBase } from "../Database/PostDataBase";
 import { PostDB, PostModel, SubPostDB } from "../Interfaces/Types";
 
 
