@@ -1,5 +1,5 @@
 import { PostDataBase } from "../Database/PostDatabase";
-import { PostDB, PostModel, SubPostDB } from "../interfaces/types";
+import { PostDB, PostModel, SubPostDB } from "../Interfaces/Types";
 
 
 
