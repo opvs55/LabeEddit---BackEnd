@@ -2,7 +2,7 @@ import { PostDataBase } from "../Database/PostDataBase";
 import { CreatePostInputDTO, CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { LikesDislikesDB, PostWithCreatorNameDB, POST_LIKE, USER_ROLES } from "../interfaces/types";
+import { LikesDislikesDB, PostWithCreatorNameDB, POST_LIKE, USER_ROLES } from "../Interfaces/Types";
 import { Post, SubPost } from "../Models/Post";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
