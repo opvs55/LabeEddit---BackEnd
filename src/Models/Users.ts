@@ -81,7 +81,5 @@ export class Users {
             createdAt: this.createdAt
         }
     }
-
-
-
 }
+

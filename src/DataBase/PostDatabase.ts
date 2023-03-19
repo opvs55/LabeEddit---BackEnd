@@ -1,4 +1,5 @@
-import { LikesDislikesDB, PostDB, PostWithCreatorNameDB, POST_LIKE, SubPostDB } from "../Interfaces/Types";
+
+import { LikesDislikesDB, PostDB, PostWithCreatorNameDB, POST_LIKE, SubPostDB, SubPostWithCreatorNameDB  } from "../Interfaces/Types";
 import { SubPost } from "../Models/Post";
 import { BaseDatabase } from "./BaseDataBase";
 
@@ -26,6 +27,7 @@ export class PostDataBase extends BaseDatabase {
         return result
     }
 
+
     public insert = async (postDB: PostDB): Promise<void> => {
 
         await BaseDatabase
@@ -33,31 +35,6 @@ export class PostDataBase extends BaseDatabase {
             .insert(postDB)
     }
 
-    public insertSubPost = async (subpostDB: SubPostDB): Promise<void> => {
-        await BaseDatabase
-            .connection(PostDataBase.TABLE_SUBPOST)
-            .insert(subpostDB)
-    }
-
-    public static async getSubPostByPostId(postId: string): Promise<SubPostDB[]> {
-        const result: SubPostDB[] = await BaseDatabase
-            .connection(PostDataBase.TABLE_SUBPOST)
-            .select()
-            .where({ post_id: postId });
-
-        return result.map(subPost => (
-            {
-                id: subPost.id,
-                post_id: subPost.post_id,
-                context: subPost.context,
-                user_id: subPost.user_id,
-                likes: subPost.likes,
-                dislikes: subPost.dislikes,
-                created_at: subPost.created_at,
-                updated_at: subPost.updated_at
-            }
-        ));
-    }
 
     public findByID = async (id: string): Promise<PostDB | undefined> => {
 
@@ -99,6 +76,7 @@ export class PostDataBase extends BaseDatabase {
 
         return result[0]
     }
+
 
     public likeOrDislikePost = async (likeDislike: LikesDislikesDB): Promise<void> => {
         await BaseDatabase.connection(PostDataBase.TABLE_LIKES_DISLIKES)

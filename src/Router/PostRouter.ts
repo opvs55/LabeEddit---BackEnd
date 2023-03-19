@@ -22,4 +22,4 @@ postRouter.post("/", postController.createPost)
 postRouter.put("/:id", postController.editPost)
 postRouter.delete("/:id", postController.deletePost)
 postRouter.put("/:id/like", postController.likeOrDislikePost)
-postRouter.post("/:id/subpost", postController.createSubPost)
+

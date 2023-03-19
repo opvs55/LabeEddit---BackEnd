@@ -1,21 +1,18 @@
-
-import { SubPostDataBase } from "../DataBase/PostDatabase";
-import {PostDB, PostModel } from "../Interfaces/Types";
+import { SubPostModel } from "../Interfaces/Types"
 
 
-export class Post {
-
+export class SubPost {
     constructor(
         private id: string,
+        private postId: string,
         private context: string,
+        private creatorId: string,
         private likes: number,
         private dislikes: number,
         private createdAt: string,
-        private updatedAt: string,
-        private creatorId: string,
-        private creatorName: string,
-        private subPost: SubPostDataBase
+        private updatedAt: string
     ) { }
+
 
     public getId(): string {
         return this.id
@@ -89,41 +86,18 @@ export class Post {
         this.creatorId = value
     }
 
-    public getCreatorName(): string {
-        return this.creatorName
-    }
 
-    public setCreatorName(value: string): void {
-        this.creatorName = value
-    }
-
-    public ToDBModel(): PostDB {
+    public toSubPostModel(): SubPostModel {
         return {
             id: this.id,
-            creator_id: this.creatorId,
-            context: this.context,
-            likes: this.likes,
-            dislikes: this.dislikes,
-            created_at: this.createdAt,
-            updated_at: this.updatedAt
-        }
-    }
-
-
-    public async toBusinessModel(): Promise<PostModel> {
-        const subPosts = await this.subPost.getSubPostWithCreatorName(this.id);
-        return {
-            id: this.id,
+            post_id: this.postId,
             context: this.context,
             likes: this.likes,
             dislikes: this.dislikes,
             created_at: this.createdAt,
             updated_at: this.updatedAt,
-            creator: {
-                id: this.creatorId,
-                name: this.creatorName
-            },
-            subPosts
+            user_id: this.creatorId
         };
+        
     }
 }
