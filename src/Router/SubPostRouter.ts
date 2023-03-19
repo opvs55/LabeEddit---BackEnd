@@ -2,8 +2,8 @@ import express from "express"
 import { SubPostbusiness } from "../Business/SubPostBusiness"
 import { SubPostController } from "../Controller/SubPostController"
 import { SubPostDataBase } from "../DataBase/SubPostDataBase"
-import { IdGenerator } from "../services/IdGenerator"
-import { TokenManager } from "../services/TokenManager"
+import { IdGenerator } from "../Services/IdGenerator"
+import { TokenManager } from "../Services/TokenManager"
 
 
 export const subPostRouter = express.Router()
