@@ -1,21 +1,20 @@
 import { Request, Response } from "express"
-import { PostBusiness } from "../business/PostBusiness"
-import { CreatePostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO"
+import { SubPostbusiness } from "../Business/SubPostBusiness"
+import {  CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetsubPostInputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO"
 import { BaseError } from "../Errors/BaseError"
 
-export class PostController {
+export class SubPostController {
     constructor(
-        private postBusiness: PostBusiness
+        private subPostBusiness: SubPostbusiness
     ) { }
 
-    public getPost = async (req: Request, res: Response) => {
+    public getsubPost = async (req: Request, res: Response) => {
         try {
             const input: GetPostInputDTO = {
-                
                 token: req.headers.authorization
             }
 
-            const output = await this.postBusiness.getPost(input)
+            const output = await this.subPostBusiness.getSubPost(input)
 
             res.status(200).send(output)
 
@@ -29,15 +28,38 @@ export class PostController {
         }
     }
 
-    public createPost = async (req: Request, res: Response) => {
+    public getsubPostById = async (req: Request, res: Response) => {
+        try {
+            const input: GetsubPostInputDTO = {
+                id: req.params.id,
+                token: req.headers.authorization
+            }
+
+            const output = await this.subPostBusiness.getSubPost(input)
+
+            res.status(200).send(output)
+
+        } catch (error) {
+            console.log(error)
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("erro inesperado")
+            }
+        }
+    }
+
+
+    public createSubPost = async (req: Request, res: Response) => {
         try {
 
-            const input: CreatePostInputDTO = {
+            const input: CreateSubPostInputDTO = {
                 token: req.headers.authorization,
+                postId: req.params.id,
                 context: req.body.context
             }
 
-            await this.postBusiness.createPost(input)
+            await this.subPostBusiness.createSubPost(input)
 
             res.status(201).send("sucesso").end
         } catch (error) {
@@ -50,7 +72,7 @@ export class PostController {
         }
     }
 
-    public editPost = async (req: Request, res: Response) => {
+    public editSubPost = async (req: Request, res: Response) => {
         try {
 
             const input: EditPostInputDTO = {
@@ -60,7 +82,7 @@ export class PostController {
                 token: req.headers.authorization
             }
 
-            await this.postBusiness.editPost(input)
+            await this.subPostBusiness.editSubPost(input)
 
             res.status(200).end()
 
@@ -82,7 +104,7 @@ export class PostController {
                 token: req.headers.authorization
             }
 
-            await this.postBusiness.deletePost(input)
+            await this.subPostBusiness.deleteSubPost(input)
 
             res.status(200).end()
         } catch (error) {
@@ -95,7 +117,7 @@ export class PostController {
         }
     }
 
-    public likeOrDislikePost = async (req: Request, res: Response) => {
+    public likeOrDislikeSubPost = async (req: Request, res: Response) => {
         try {
 
             const input: LikeOrDeslikePostInputDPO = {
@@ -103,8 +125,7 @@ export class PostController {
                 token: req.headers.authorization,
                 like: req.body.like
             }
-            console.log(input)
-            await this.postBusiness.likeOrDislikesPost(input)
+            await this.subPostBusiness.likeOrDislikesSubPost(input)
 
             res.status(200).end()
         } catch (error) {

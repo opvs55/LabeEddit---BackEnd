@@ -1,4 +1,4 @@
-import { PostModel } from "../interfaces/types"
+import { PostModel, SubPostModel } from "../interfaces/types"
 
 
 export interface SignUpInputDTO {
@@ -25,7 +25,16 @@ export interface GetPostInputDTO {
     token: string | undefined
 }
 
+export interface GetsubPostInputDTO {
+    id: string
+    token: string | undefined
+}
+
+
 export type GetPostOutputDTO = PostModel[]
+
+
+export type GetSubPostOutputDTO = SubPostModel[]
 
 export interface CreatePostInputDTO {
     token: string | undefined,
@@ -35,7 +44,7 @@ export interface CreatePostInputDTO {
 export interface EditPostInputDTO {
     idToEdit: string,
     token: string | undefined,
-    context: unknown
+    context: any
 }
 
 export interface DeletePostInputDTO {

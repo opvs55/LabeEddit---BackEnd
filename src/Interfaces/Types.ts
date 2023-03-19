@@ -65,6 +65,10 @@ export interface PostWithCreatorNameDB extends PostDB {
     creator_name: string
 }
 
+export interface SubPostWithCreatorNameDB extends SubPostDB {
+    creator_name: string
+}
+
 
 export interface PostModel {
     id: string,
@@ -78,8 +82,22 @@ export interface PostModel {
         name: string
     },
     subPosts?: SubPostDB[]
+
+
+
 }
 
+
+export interface SubPostModel {
+    id: string,
+    post_id:string,
+    context: string,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    updated_at: string,
+    user_id: string
+}
 
 
 

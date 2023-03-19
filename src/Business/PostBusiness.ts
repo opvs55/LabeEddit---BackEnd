@@ -1,9 +1,10 @@
 import { PostDataBase } from "../Database/PostDatabase";
-import { CreatePostInputDTO, CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
+import { SubPostDataBase } from "../DataBase/SubPostDataBase";
+import { CreatePostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
 import { LikesDislikesDB, PostWithCreatorNameDB, POST_LIKE, USER_ROLES } from "../interfaces/types";
-import { Post, SubPost } from "../Models/Post";
+import { Post } from "../Models/Post";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
 
@@ -17,7 +18,7 @@ export class PostBusiness {
     public getPost = async (input: GetPostInputDTO): Promise<GetPostOutputDTO> => {
 
         const { token } = input
-
+        
         if (!token) {
             throw new BadRequestError("token ausente")
         }
@@ -32,6 +33,7 @@ export class PostBusiness {
             await this.postDataBase
                 .getPostWithCreatorName()
 
+        const subPostData = new SubPostDataBase()
 
         const post = await Promise.all(postWithCreatorNameDB.map(
             async (postWithCreatorNameDB) => {
@@ -43,7 +45,8 @@ export class PostBusiness {
                     postWithCreatorNameDB.created_at,
                     postWithCreatorNameDB.updated_at,
                     postWithCreatorNameDB.creator_id,
-                    postWithCreatorNameDB.creator_name
+                    postWithCreatorNameDB.creator_name,
+                    subPostData
                 )
 
 
@@ -88,63 +91,12 @@ export class PostBusiness {
             createAt,
             updateAt,
             creatorId,
-            creatorName
+            creatorName,
+            new SubPostDataBase()
         )
 
         const postDB = post.ToDBModel()
         await this.postDataBase.insert(postDB)
-    }
-
-    public createSubPost = async (input: CreateSubPostInputDTO): Promise<void> => {
-        const { token, postId, context } = input
-
-
-        console.log(input)
-        if (token === undefined) {
-            throw new BadRequestError("token ausente")
-        }
-        if (postId === undefined) {
-            throw new BadRequestError("postId ausente")
-        }
-
-        if (typeof context !== "string") {
-            throw new BadRequestError("Context deve ser string")
-        }
-
-
-        const payload = this.tokenManager.getPayload(token)
-
-        const postLoad = await this.postDataBase.findByID(postId)
-
-        if (postLoad == null) {
-            throw new BadRequestError("Id Errado")
-        }
-
-        if (payload == null) {
-            throw new BadRequestError("token invalido")
-        }
-
-
-        const id = this.idGenerator.generate()
-        const createAt = new Date().toISOString()
-        const updateAt = new Date().toISOString()
-        const creatorId = payload.id
-        const creatorName = payload.name
-        const postid = postLoad.id
-
-        const subPost = new SubPost(
-            id,
-            postid,
-            context,
-            creatorId,
-            0,
-            0,
-            createAt,
-            updateAt
-        )
-
-        const subPostDB = subPost.toSubPostModel()
-        await this.postDataBase.insertSubPost(subPostDB)
     }
 
     public editPost = async (input: EditPostInputDTO): Promise<void> => {
@@ -187,7 +139,8 @@ export class PostBusiness {
             postDB.created_at,
             postDB.updated_at,
             creatorId,
-            creatorName
+            creatorName,
+            new SubPostDataBase()
         )
 
         post.setContext(context)
@@ -273,7 +226,8 @@ export class PostBusiness {
             postWithCreatorDB.created_at,
             postWithCreatorDB.updated_at,
             postWithCreatorDB.creator_id,
-            postWithCreatorDB.creator_name
+            postWithCreatorDB.creator_name,
+            new SubPostDataBase()
         )
 
         if (postLikeOrDislikeConfirm === POST_LIKE.ALREADY_LIKED) {
@@ -296,14 +250,13 @@ export class PostBusiness {
             }
         } else {
             await this.postDataBase.likeOrDislikePost(likeDislikeDB)
-            if (like) {
-                post.addLike()
-            } else {
-                post.removeLike()
-            }
+            
+            like ? post.addLike() : post.addDislikes()
         }
+        
         const updatePostDB = post.ToDBModel()
 
         await this.postDataBase.update(idToLikeOrDeslike, updatePostDB)
     }
+
 }
