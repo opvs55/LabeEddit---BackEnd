@@ -1,5 +1,6 @@
-import { SubPostDataBase } from "../DataBase/SubPostDataBase";
-import { PostDB, PostModel} from "../interfaces/types";
+
+import { SubPostDataBase } from "../DataBase/PostDatabase";
+import {PostDB, PostModel } from "../Interfaces/Types";
 
 
 export class Post {

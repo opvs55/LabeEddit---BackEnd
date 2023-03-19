@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
-import { PostBusiness } from "../business/PostBusiness"
-import { CreatePostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO"
+
+import { PostBusiness } from "../Business/PostBusiness"
+import {CreatePostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO"
 import { BaseError } from "../Errors/BaseError"
 
 export class PostController {

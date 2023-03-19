@@ -1,10 +1,10 @@
-import { PostDataBase } from "../Database/PostDatabase";
-import { SubPostDataBase } from "../DataBase/SubPostDataBase";
-import { CreatePostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
+import { PostDataBase } from "../DataBase/PostDatabase";
+import { CreatePostInputDTO, CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { LikesDislikesDB, PostWithCreatorNameDB, POST_LIKE, USER_ROLES } from "../interfaces/types";
+import { LikesDislikesDB, PostWithCreatorNameDB, POST_LIKE, USER_ROLES } from "../Interfaces/Types";
 import { Post } from "../Models/Post";
+import { SubPostDataBase } from "../DataBase/SubPostDataBase";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
 
@@ -258,5 +258,5 @@ export class PostBusiness {
 
         await this.postDataBase.update(idToLikeOrDeslike, updatePostDB)
     }
-
 }
+

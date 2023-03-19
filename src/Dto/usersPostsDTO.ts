@@ -1,4 +1,6 @@
-import { PostModel, SubPostModel } from "../interfaces/types"
+
+import { PostModel, SubPostModel } from "../Interfaces/Types"
+
 
 
 export interface SignUpInputDTO {
