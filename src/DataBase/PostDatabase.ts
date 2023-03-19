@@ -1,6 +1,5 @@
 
-import { LikesDislikesDB, PostDB, PostWithCreatorNameDB, POST_LIKE, SubPostDB, SubPostWithCreatorNameDB  } from "../Interfaces/Types";
-import { SubPost } from "../Models/Post";
+import { LikesDislikesDB, PostDB, PostWithCreatorNameDB, POST_LIKE } from "../Interfaces/Types";
 import { BaseDatabase } from "./BaseDataBase";
 
 export class PostDataBase extends BaseDatabase {
