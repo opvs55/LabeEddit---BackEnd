@@ -100,7 +100,7 @@ export class SubPostbusiness {
             creatorName
         )
 
-        const subPostDB = subPost.toSubPostModel()
+        const subPostDB = subPost.SubPostToDBModel()
         await this.subPostDataBase.insertSubPost(subPostDB)
     }
 
