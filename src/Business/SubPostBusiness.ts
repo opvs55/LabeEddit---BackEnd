@@ -52,7 +52,8 @@ export class SubPostbusiness {
                     subPostWithCreatorName.likes,
                     subPostWithCreatorName.dislikes,
                     subPostWithCreatorName.created_at,
-                    subPostWithCreatorName.updated_at
+                    subPostWithCreatorName.updated_at,
+                    subPostWithCreatorName.creator_name
                 )
                 return await subPost.toSubPostModel()
         }
@@ -83,7 +84,7 @@ export class SubPostbusiness {
         }
 
 
-        const subPostWithCreatorNameDB: SubPostDB[] =
+        const subPostWithCreatorNameDB: SubPostWithCreatorNameDB[] =
         await this.subPostDataBase
             .getSubPostWithCreatorName(id)
 
@@ -98,7 +99,8 @@ export class SubPostbusiness {
                     subPostWithCreatorName.likes,
                     subPostWithCreatorName.dislikes,
                     subPostWithCreatorName.created_at,
-                    subPostWithCreatorName.updated_at
+                    subPostWithCreatorName.updated_at,
+                    subPostWithCreatorName.creator_name
                 )
                 return await subPost.toSubPostModel()
         }
@@ -140,6 +142,7 @@ export class SubPostbusiness {
         const createAt = new Date().toISOString()
         const updateAt = new Date().toISOString()
         const creatorId = payload.id
+        const creatorName = payload.name
 
         const subPost = new SubPost(
             id,
@@ -149,7 +152,8 @@ export class SubPostbusiness {
             0,
             0,
             createAt,
-            updateAt
+            updateAt,
+            creatorName
         )
 
         const subPostDB = subPost.toSubPostModel()
@@ -179,6 +183,7 @@ export class SubPostbusiness {
         }
 
         const creatorId = payload.id
+        const creatorName = payload.name
 
         if (subPostDB.user_id!== creatorId) {
             throw new BadRequestError("Você não criou a postagem!")
@@ -192,7 +197,8 @@ export class SubPostbusiness {
             subPostDB.likes,
             subPostDB.dislikes,
             subPostDB.created_at,
-            subPostDB.updated_at
+            subPostDB.updated_at,
+            creatorName 
         )
 
         subPostEditada.setContext(context)
@@ -259,6 +265,7 @@ export class SubPostbusiness {
 
         const creatorId = payload.id
         const likeCondition = like ? 1 : 0
+        const creatorName = payload.name
 
         const likeDislikeDB: LikesDislikesDB = {
             user_id: creatorId,
@@ -277,7 +284,8 @@ export class SubPostbusiness {
             postWithCreatorDB.likes,
             postWithCreatorDB.dislikes,
             postWithCreatorDB.created_at,
-            postWithCreatorDB.updated_at
+            postWithCreatorDB.updated_at,
+            creatorName
         )
 
         if (postLikeOrDislikeConfirm === POST_LIKE.ALREADY_LIKED) {
