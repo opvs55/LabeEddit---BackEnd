@@ -10,7 +10,8 @@ export class SubPost {
         private likes: number,
         private dislikes: number,
         private createdAt: string,
-        private updatedAt: string
+        private updatedAt: string,
+        private creatorName: string
     ) { }
 
 
@@ -86,6 +87,14 @@ export class SubPost {
         this.creatorId = value
     }
 
+    public getCreatorName(): string {
+        return this.creatorName
+    }
+
+    public setCreatorName(value: string): void {
+        this.creatorName = value
+    }
+
 
     public toSubPostModel(): SubPostModel {
         return {
@@ -96,7 +105,8 @@ export class SubPost {
             dislikes: this.dislikes,
             created_at: this.createdAt,
             updated_at: this.updatedAt,
-            user_id: this.creatorId
+            user_id: this.creatorId,
+            creator_name: this.creatorName
         };
         
     }

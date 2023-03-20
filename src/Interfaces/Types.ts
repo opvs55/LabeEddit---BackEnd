@@ -96,7 +96,8 @@ export interface SubPostModel {
     dislikes: number,
     created_at: string,
     updated_at: string,
-    user_id: string
+    user_id: string,
+    creator_name: string
 }
 
 
