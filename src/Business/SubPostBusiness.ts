@@ -38,7 +38,7 @@ export class SubPostbusiness {
 
         const subPostWithCreatorNameDB: SubPostWithCreatorNameDB[] =
         await this.subPostDataBase
-            .findSubPostById(id)
+            .getSubPostByPostId(id)
 
 
         const subPost = await Promise.all(subPostWithCreatorNameDB.map(

@@ -26,6 +26,27 @@ export class SubPostDataBase extends BaseDatabase {
         return result
     }
 
+    public getSubPostByPostId = async (postId: string): Promise<SubPostWithCreatorNameDB[]> => {
+        const result: SubPostWithCreatorNameDB[] = await BaseDatabase
+            .connection(SubPostDataBase.TABLE_SUBPOSTS)
+            .select(
+                "subposts.id",
+                "subposts.post_id",
+                "subposts.context",
+                "subposts.user_id",
+                "subposts.likes",
+                "subposts.dislikes",
+                "subposts.created_at",
+                "subposts.updated_at",
+                "users.name as creator_name"
+            )
+            .join("users", "subposts.user_id", "=", "users.id")
+            .where("subposts.post_id", "=", postId)
+
+        return result
+    }
+
+
 
     public insertSubPost = async (subpostDB: SubPostDB): Promise<void> => {
         await BaseDatabase
