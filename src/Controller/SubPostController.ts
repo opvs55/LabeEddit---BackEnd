@@ -5,7 +5,7 @@ import {
         CreateSubPostInputDTO, 
         DeletePostInputDTO, 
         EditPostInputDTO, 
-        GetPostInputDTO, 
+        GetsubPostInputDTO, 
         LikeOrDeslikePostInputDPO 
 } from "../Dto/usersPostsDTO"
 
@@ -25,8 +25,8 @@ export class SubPostController {
     public getsubPost = async (req: Request, res: Response) => {
         try {
 
-            const input: GetPostInputDTO = {
-
+            const input: GetsubPostInputDTO = {
+                id: req.params.id,
                 token: req.headers.authorization
                 
             }
