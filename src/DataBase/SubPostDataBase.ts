@@ -7,8 +7,8 @@ export class SubPostDataBase extends BaseDatabase {
 
 
 
-    public getSubPost = async (): Promise<SubPostWithCreatorNameDB[]> => {
-        const result: SubPostWithCreatorNameDB[] = await BaseDatabase
+    public getSubPost = async (): Promise<SubPostDB[]> => {
+        const result: SubPostDB[] = await BaseDatabase
             .connection(SubPostDataBase.TABLE_SUBPOSTS)
             .select(
                 "subposts.id",
