@@ -1,5 +1,5 @@
 import { SubPostDataBase } from "../DataBase/SubPostDataBase";
-import { CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetSubPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
+import { CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetsubPostInputDTO, GetSubPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { LikesDislikesDB, POST_LIKE,SubPostWithCreatorNameDB, USER_ROLES } from "../Interfaces/Types";
 import { IdGenerator } from "../Services/IdGenerator";
@@ -19,9 +19,9 @@ export class SubPostbusiness {
     ){}
 
 
-    public getSubPost = async (input: GetPostInputDTO) => {
+    public getSubPost = async (input: GetsubPostInputDTO) => {
 
-        const {token} = input
+        const {id, token} = input
 
 
         if (!token){
@@ -38,9 +38,8 @@ export class SubPostbusiness {
 
         const subPostWithCreatorNameDB: SubPostWithCreatorNameDB[] =
         await this.subPostDataBase
-            .getSubPost()
+            .findSubPostById(id)
 
-        console.log('subPostWithCreatorNameDB:', subPostWithCreatorNameDB)
 
         const subPost = await Promise.all(subPostWithCreatorNameDB.map(
             async (subPostWithCreatorName) => {
