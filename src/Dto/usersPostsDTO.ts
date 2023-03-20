@@ -43,6 +43,12 @@ export interface CreatePostInputDTO {
     context: unknown
 }
 
+export interface CreateSubPostInputDTO {
+    token: string | undefined,
+    context: unknown,
+    postId: string
+}
+
 export interface EditPostInputDTO {
     idToEdit: string,
     token: string | undefined,

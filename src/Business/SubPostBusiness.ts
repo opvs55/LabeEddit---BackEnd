@@ -1,7 +1,7 @@
 import { SubPostDataBase } from "../DataBase/SubPostDataBase";
-import { CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetsubPostInputDTO, GetSubPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
+import { CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetSubPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
-import { LikesDislikesDB, POST_LIKE, SubPostDB, SubPostWithCreatorNameDB, USER_ROLES } from "../Interfaces/Types";
+import { LikesDislikesDB, POST_LIKE,SubPostWithCreatorNameDB, USER_ROLES } from "../Interfaces/Types";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
 import { NotFoundError } from "../Errors/NotFoundError";
@@ -64,74 +64,19 @@ export class SubPostbusiness {
         return output
     }
 
-    public getSubPostById = async (input: GetsubPostInputDTO) => {
-
-        const {token, id} = input
-
-
-        if (!token){
-            throw new BadRequestError("token ausente")
-        }
-
-        if (!id){
-            throw new BadRequestError("id ausente")
-        }
-
-        const payload = this.tokenManager.getPayload(token)
-
-        if(payload == null) {
-            throw new BadRequestError("token invalido")
-        }
-
-
-        const subPostWithCreatorNameDB: SubPostWithCreatorNameDB[] =
-        await this.subPostDataBase
-            .getSubPostWithCreatorName(id)
-
-
-        const subPost = await Promise.all(subPostWithCreatorNameDB.map(
-            async (subPostWithCreatorName) => {
-                const subPost = new SubPost(
-                    subPostWithCreatorName.id,
-                    subPostWithCreatorName.post_id,
-                    subPostWithCreatorName.context,
-                    subPostWithCreatorName.user_id,
-                    subPostWithCreatorName.likes,
-                    subPostWithCreatorName.dislikes,
-                    subPostWithCreatorName.created_at,
-                    subPostWithCreatorName.updated_at,
-                    subPostWithCreatorName.creator_name
-                )
-                return await subPost.toSubPostModel()
-        }
-        ))
-
-        const output: GetSubPostOutputDTO = subPost
-
-        return output
-    }
 
     public createSubPost = async (input: CreateSubPostInputDTO): Promise<void> => {
-        const { token, postId, context } = input
+        const { token, context, postId } = input
 
         if (token === undefined) {
             throw new BadRequestError("token ausente")
-        }
-        if (postId === undefined) {
-            throw new BadRequestError("postId ausente")
         }
 
         if (typeof context !== "string") {
             throw new BadRequestError("Context deve ser string")
         }
 
-
         const payload = this.tokenManager.getPayload(token)
-
-
-        if (postId == null) {
-            throw new BadRequestError("Id Errado")
-        }
 
         if (payload == null) {
             throw new BadRequestError("token invalido")
@@ -159,6 +104,7 @@ export class SubPostbusiness {
         const subPostDB = subPost.toSubPostModel()
         await this.subPostDataBase.insertSubPost(subPostDB)
     }
+
 
     public editSubPost = async (input: EditPostInputDTO): Promise<void> => {
 
@@ -312,7 +258,7 @@ export class SubPostbusiness {
             like ? subPost.addLike() : subPost.addDislikes()
         }
 
-        const updateSubPostDB = subPost.toSubPostModel()
+        const updateSubPostDB = subPost.SubPostToDBModel()
 
         await this.subPostDataBase.updateSubPost(idToLikeOrDeslike, updateSubPostDB)
     }

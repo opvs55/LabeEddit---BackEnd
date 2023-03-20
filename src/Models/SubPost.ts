@@ -1,4 +1,4 @@
-import { SubPostModel } from "../Interfaces/Types"
+import { SubPostDB, SubPostModel } from "../Interfaces/Types"
 
 
 export class SubPost {
@@ -95,6 +95,19 @@ export class SubPost {
         this.creatorName = value
     }
 
+    
+    public SubPostToDBModel(): SubPostDB {
+        return {
+            id: this.id,
+            post_id: this.postId,
+            context: this.context,
+            user_id: this.creatorId,
+            likes: this.likes,
+            dislikes: this.dislikes,
+            created_at: this.createdAt,
+            updated_at: this.updatedAt
+        }
+    }
 
     public toSubPostModel(): SubPostModel {
         return {

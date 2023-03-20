@@ -1,5 +1,5 @@
 import { PostDataBase } from "../DataBase/PostDatabase";
-import { CreatePostInputDTO, CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
+import { CreatePostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
 import { LikesDislikesDB, PostWithCreatorNameDB, POST_LIKE, USER_ROLES } from "../Interfaces/Types";
