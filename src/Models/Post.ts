@@ -111,7 +111,7 @@ export class Post {
 
 
     public async toBusinessModel(): Promise<PostModel> {
-        const subPosts = await this.subPost.getSubPostWithCreatorName(this.id);
+        const subPosts = await this.subPost.findSubPostById(this.id);
         return {
             id: this.id,
             context: this.context,

@@ -1,17 +1,34 @@
 import { Request, Response } from "express"
 import { SubPostbusiness } from "../Business/SubPostBusiness"
-import {  CreateSubPostInputDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetsubPostInputDTO, LikeOrDeslikePostInputDPO } from "../Dto/usersPostsDTO"
+
+import {  
+        CreateSubPostInputDTO, 
+        DeletePostInputDTO, 
+        EditPostInputDTO, 
+        GetPostInputDTO, 
+        LikeOrDeslikePostInputDPO 
+} from "../Dto/usersPostsDTO"
+
 import { BaseError } from "../Errors/BaseError"
+
+
+
+
 
 export class SubPostController {
     constructor(
+
         private subPostBusiness: SubPostbusiness
+
     ) { }
 
     public getsubPost = async (req: Request, res: Response) => {
         try {
+
             const input: GetPostInputDTO = {
+
                 token: req.headers.authorization
+                
             }
 
             const output = await this.subPostBusiness.getSubPost(input)
@@ -27,28 +44,6 @@ export class SubPostController {
             }
         }
     }
-
-    public getsubPostById = async (req: Request, res: Response) => {
-        try {
-            const input: GetsubPostInputDTO = {
-                id: req.params.id,
-                token: req.headers.authorization
-            }
-
-            const output = await this.subPostBusiness.getSubPost(input)
-
-            res.status(200).send(output)
-
-        } catch (error) {
-            console.log(error)
-            if (error instanceof BaseError) {
-                res.status(error.statusCode).send(error.message)
-            } else {
-                res.status(500).send("erro inesperado")
-            }
-        }
-    }
-
 
     public createSubPost = async (req: Request, res: Response) => {
         try {
