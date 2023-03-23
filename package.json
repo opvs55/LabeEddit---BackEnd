@@ -4,10 +4,11 @@
   "description": "Projeto Labenu - integrador",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/index.js",
-    "build": "tsc",
-    "dev": "ts-node-dev ./src/index.ts"
-  },
+		"start": "node ./build/index.js",
+		"build": "tsc",
+		"dev": "ts-node-dev ./src/index.ts",
+		"test": "jest"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/opvs55/LabeEddit.git"
@@ -23,9 +24,12 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.0",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.14.6",
     "@types/uuid": "^9.0.1",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.5"
   },
