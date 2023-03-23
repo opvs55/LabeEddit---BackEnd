@@ -125,9 +125,6 @@ export class PostBusiness {
 
         const creatorId = payload.id
 
-        if (postDB.creator_id !== creatorId) {
-            throw new BadRequestError("Você não criou a postagem!")
-        }
 
         const creatorName = payload.name
 
