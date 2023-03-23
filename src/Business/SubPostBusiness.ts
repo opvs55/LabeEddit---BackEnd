@@ -130,9 +130,6 @@ export class SubPostbusiness {
         const creatorId = payload.id
         const creatorName = payload.name
 
-        if (subPostDB.user_id!== creatorId) {
-            throw new BadRequestError("Você não criou a postagem!")
-        }
 
         const subPostEditada = new SubPost(
             subPostDB.id,

@@ -2,7 +2,7 @@ import { BaseDatabase } from "../../src/database/BaseDatabase"
 import { LikesDislikesDB, PostDB, PostWithCreatorNameDB, POST_LIKE} from "../../src/Interfaces/Types"
 
 export class PostDatabaseMock extends BaseDatabase {
-    public static TABLE_USERS = "users"
+    public static TABLE_POST = "post"
 
     public getPostWithCreatorName = async (): Promise<PostWithCreatorNameDB[]>=> {
         return[
