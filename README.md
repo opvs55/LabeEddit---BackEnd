@@ -14,13 +14,6 @@ Crie repositórios pessoais separados para o front e para o back, pois facilita 
 
 # Requisitos do projeto
 
-## Front-end
-
-- [ ]  Respeitar o layout do Figma
-- [ ]  Uso do ReactJS
-- [ ]  Site deployado
-- [ ]  Documentação README
-
 ## Back-end
 
 - [ ]  Endpoints seguindo as boas práticas HTTP
